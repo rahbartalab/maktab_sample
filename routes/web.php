@@ -13,6 +13,7 @@
 */
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,3 +38,8 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
         Route::post('/', 'submitRegister');
     });
 });
+
+
+Route::get('posts', [PostController::class, 'index']);
+Route::get('posts/create', [PostController::class, 'create']);
+Route::post('posts', [PostController::class, 'store']);
