@@ -28,7 +28,7 @@ Route::get('/', fn() => 'home');
 
 Route::prefix('auth')->controller(AuthController::class)->group(function () {
     Route::prefix('login')->group(function () {
-        Route::get('/',  'showLogin');
+        Route::get('/', 'showLogin');
         Route::post('/', 'submitLogin');
     });
 
