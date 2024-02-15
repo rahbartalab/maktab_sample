@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -21,21 +23,10 @@ class PostController extends Controller
         return view('posts.create', compact('users'));
     }
 
-    public function store(Request $request)
+    public function store(StorePostRequest $request): RedirectResponse
     {
-        $request->validate([
-            'title' => ['required', 'string'],
-            'description' => ['required', 'string'],
-            'user_id' => ['required', 'exists:users,id']
-        ]);
-
-
-        Post::query()->create([
-            'title' => request('title'),
-            'description' => request('description'),
-            'user_id' => request('user_id')
-        ]);
-
+        $validated = $request->validated();
+        Post::query()->create($validated);
         return redirect()->route('posts.index');
     }
 }
