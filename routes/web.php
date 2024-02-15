@@ -39,7 +39,11 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     });
 });
 
-
-Route::get('posts', [PostController::class, 'index']);
-Route::get('posts/create', [PostController::class, 'create']);
-Route::post('posts', [PostController::class, 'store']);
+Route::prefix('posts')
+    ->controller(PostController::class)
+    ->name('posts.')
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+    });

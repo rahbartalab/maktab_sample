@@ -8,7 +8,8 @@
 </head>
 <body>
 
-<form action="/posts" method="post">
+
+<form action="{{ route('posts.store') }}" method="post">
     @csrf
     <label for="title">
         title
