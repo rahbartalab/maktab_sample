@@ -14,7 +14,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => 'home');
@@ -39,11 +41,21 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     });
 });
 
-Route::prefix('posts')
-    ->controller(PostController::class)
-    ->name('posts.')
-    ->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('create', 'create')->name('create');
-        Route::post('/', 'store')->name('store');
-    });
+Route::resource('posts', PostController::class);
+Route::resource('users', UserController::class);
+
+//Route::get('/users/{user}/posts/{post}', [UserController::class, 'posts'])->name('users.posts');
+//
+//Route::get('test', function () {
+//    $posts = DB::table('posts')
+//        ->where('title', 'like', 'a%')
+//        ->select(['title', 'user_id'])
+//        ->get();
+//
+//    dd($posts->toArray());
+//
+//
+//    $posts = DB::table('posts')
+//        ->pluck('title');
+//    dd($posts->toArray());
+//});
