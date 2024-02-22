@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class StorePostRequest extends FormRequest
 {
@@ -22,9 +23,18 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string'],
+            'title' => ['required', 'string' , 'unique:posts,title'],
             'description' => ['required', 'string'],
             'user_id' => ['required', 'exists:users,id']
         ];
+    }
+
+    public function validated($key = null, $default = null)
+    {
+        // slug: this is sample title -> this-is-sample-title
+        return array_merge(
+            parent::validated(),
+            ['slug' => Str::slug(request('title'))]
+        );
     }
 }

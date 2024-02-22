@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class UpdatePostRequest extends FormRequest
 {
@@ -22,9 +24,22 @@ class UpdatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string'],
+            'title' => ['required', 'string',
+                Rule
+                    ::unique('posts', 'title')
+                    ->ignore($this->route('post')->id)
+            ],
             'description' => ['required', 'string'],
             'user_id' => ['required', 'exists:users,id']
         ];
+    }
+
+    public function validated($key = null, $default = null)
+    {
+        // slug: this is sample title -> this-is-sample-title
+        return array_merge(
+            parent::validated(),
+            ['slug' => Str::slug(request('title'))]
+        );
     }
 }

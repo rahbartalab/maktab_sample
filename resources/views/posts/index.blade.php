@@ -13,6 +13,7 @@
     <thead>
     <tr>
         <th>ID</th>
+        <th>slug</th>
         <th>title</th>
         <th>description</th>
         <th>user</th>
@@ -22,7 +23,16 @@
     @foreach($posts as $post)
         <tr>
             <td>{{ $post->id }}</td>
-            <td>{{ $post->title }}</td>
+            <td>
+                <a class="text-yellow-700" href="{{ route('posts.show' , $post) }}">
+                    {{ $post->slug }}
+                </a>
+            </td>
+            <td>
+                <a class="text-blue-700" href="{{ route('posts.edit' , $post ) }}">
+                    {{ $post->title }}
+                </a>
+            </td>
             <td>{{ $post->description }}</td>
             <td>{{ $post->user_id }}</td>
         </tr>

@@ -15,8 +15,6 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => 'home');
@@ -42,6 +40,10 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
 });
 
 Route::resource('posts', PostController::class);
+
+//Route::get('posts/{post:slug}', [PostController::class, 'show'])
+//    ->name('posts.show');
+
 Route::resource('users', UserController::class);
 
 //Route::get('/users/{user}/posts/{post}', [UserController::class, 'posts'])->name('users.posts');

@@ -19,6 +19,7 @@ class PostFactory extends Factory
     {
         return [
             'title' => fake()->sentence,
+            'slug' => fake()->slug,
             'description' => fake()->paragraph,
             'user_id' => User::query()->inRandomOrder()->first()
         ];

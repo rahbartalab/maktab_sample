@@ -59,4 +59,8 @@ class PostController extends Controller
         return redirect()->route('posts.edit', $post);
     }
 
+    public function show(Post $post)
+    {
+        dd($post);
+    }
 }
