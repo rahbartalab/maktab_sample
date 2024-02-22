@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\Post\StorePostRequest;
+use App\Http\Requests\Post\UpdatePostRequest;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class PostController extends Controller
@@ -40,4 +40,23 @@ class PostController extends Controller
         Post::query()->create($validated);
         return redirect()->route('posts.index');
     }
+
+    public function edit(Post $post): View
+    {
+        $users = cache()->remember(
+            'users',
+            Controller::DEFAULT_CACHE_SECONDS,
+            fn() => User::all()
+        );
+        return view('posts.edit',
+            compact('post', 'users'));
+    }
+
+    public function update(UpdatePostRequest $request, Post $post): RedirectResponse
+    {
+        $validated = $request->validated();
+        $post->update($validated);
+        return redirect()->route('posts.edit', $post);
+    }
+
 }
