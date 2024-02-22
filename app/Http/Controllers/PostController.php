@@ -13,17 +13,23 @@ class PostController extends Controller
 {
     public function index(): View
     {
-        $posts = Post::query()
-            ->paginate(
-                request('limit') ??
-                Controller::DEFAULT_PAGINATE
-            );
+        $posts = cache()->remember(
+            'posts',
+            Controller::DEFAULT_CACHE_SECONDS,
+            fn() => Post::query()
+                ->paginate(request('limit') ?? Controller::DEFAULT_PAGINATE)
+        );
+
         return view('posts.index', compact('posts'));
     }
 
     public function create(): View
     {
-        $users = User::all();
+        $users = cache()->remember(
+            'users',
+            Controller::DEFAULT_CACHE_SECONDS,
+            fn() => User::all()
+        );
         return view('posts.create', compact('users'));
     }
 
