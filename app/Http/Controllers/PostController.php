@@ -6,15 +6,16 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class PostController extends Controller
 {
     public function index(): View
     {
+        $page = request('page') ?? 1;
         $posts = cache()->remember(
-            'posts',
+            'posts.' . str($page),
             Controller::DEFAULT_CACHE_SECONDS,
             fn() => Post::query()
                 ->paginate(request('limit') ?? Controller::DEFAULT_PAGINATE)

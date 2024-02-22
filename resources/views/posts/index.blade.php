@@ -27,7 +27,7 @@
     @endforeach
     </tbody>
 </table>
-{{--<div class="text-left">{{ $posts->links() }}</div>--}}
+<div class="text-left">{{ $posts->links() }}</div>
 
 </body>
 </html>
