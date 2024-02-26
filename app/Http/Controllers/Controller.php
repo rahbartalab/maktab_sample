@@ -11,5 +11,5 @@ class Controller extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
     const DEFAULT_PAGINATE = 30;
-    const DEFAULT_CACHE_SECONDS = 120;
+    const DEFAULT_CACHE_SECONDS = 0;
 }

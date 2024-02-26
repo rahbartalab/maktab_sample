@@ -17,7 +17,9 @@ class PostController extends Controller
         $posts = cache()->remember(
             'posts.' . str($page),
             Controller::DEFAULT_CACHE_SECONDS,
-            fn() => Post::query()
+            fn() => Post
+                ::searchTitle()
+                ->searchDescription()
                 ->paginate(request('limit') ?? Controller::DEFAULT_PAGINATE)
         );
 
@@ -61,6 +63,6 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        dd($post);
+        dd($post->toArray());
     }
 }

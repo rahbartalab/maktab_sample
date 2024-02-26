@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('slug')->unique();
             $table->text('description');
             $table->text('image')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
