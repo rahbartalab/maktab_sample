@@ -61,8 +61,8 @@ class PostController extends Controller
         return redirect()->route('posts.edit', $post);
     }
 
-    public function show(Post $post)
+    public function show(Post $post): View
     {
-        dd($post->toArray());
+        return view('posts.show', compact('post'));
     }
 }

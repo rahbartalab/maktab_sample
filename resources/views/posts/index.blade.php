@@ -8,14 +8,12 @@
     <title>Document</title>
 </head>
 <body>
-
 <table>
     <thead>
     <tr>
         <th>ID</th>
         <th>slug</th>
         <th>title</th>
-        <th>description</th>
         <th>user</th>
     </tr>
     </thead>
@@ -33,7 +31,6 @@
                     {{ $post->title }}
                 </a>
             </td>
-            <td>{{ $post->description }}</td>
             <td>{{ $post->user_id }}</td>
         </tr>
     @endforeach

@@ -6,6 +6,7 @@ use App\Traits\HasActiveScope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method static searchTitle()
@@ -33,6 +34,14 @@ class Post extends Model
 //        'slug',
 //        'image'
 //    ];
+    // region relation
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // endregion
+
 
     public function getRouteKeyName(): string
     {

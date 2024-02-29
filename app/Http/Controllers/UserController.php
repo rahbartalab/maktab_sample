@@ -64,4 +64,16 @@ class UserController extends Controller
     {
         //
     }
+
+    public function posts(User $user)
+    {
+        /*
+         * $posts = $user->posts
+         * ->> $posts = $user->posts()->get();
+         * ->> $posts = $user->posts()->paginate();
+         */
+
+        $posts = $user->posts()->paginate(Controller::DEFAULT_PAGINATE);
+        return view('posts.index', compact('posts'));
+    }
 }

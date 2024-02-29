@@ -14,6 +14,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,7 @@ Route::resource('posts', PostController::class);
 //Route::get('posts/{post:slug}', [PostController::class, 'show'])
 //    ->name('posts.show');
 
+Route::get('users/{user}/posts', [UserController::class, 'posts'])->name('users.posts');
 Route::resource('users', UserController::class);
 
 //Route::get('/users/{user}/posts/{post}', [UserController::class, 'posts'])->name('users.posts');
@@ -61,3 +63,4 @@ Route::resource('users', UserController::class);
 //        ->pluck('title');
 //    dd($posts->toArray());
 //});
+Route::get('test', TestController::class);
