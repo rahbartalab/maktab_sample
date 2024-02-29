@@ -34,6 +34,10 @@ class Post extends Model
 //        'slug',
 //        'image'
 //    ];
+
+    protected $with = [
+//        'user'
+    ];
     // region relation
     public function user(): BelongsTo
     {

@@ -31,7 +31,7 @@
                     {{ $post->title }}
                 </a>
             </td>
-            <td>{{ $post->user_id }}</td>
+            <td>{{ $post->user->fullName }}</td>
         </tr>
     @endforeach
     </tbody>
