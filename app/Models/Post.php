@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @method static searchTitle()
@@ -44,8 +45,12 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    // endregion
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 
+    // endregion
 
     public function getRouteKeyName(): string
     {
