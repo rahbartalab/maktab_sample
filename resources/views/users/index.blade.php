@@ -29,7 +29,7 @@
             <td>{{ $user->last_name }}</td>
             <td>{{ $user->fullName }}</td>
             <td>{{ $user->email }}</td>
-            <td><a href="{{ route('users.posts' , $user) }}">show posts</a></td>
+            <td><a href="{{ route('posts.index' , ['user' => $user->id]) }}">show posts</a></td>
         </tr>
     @empty
         <p>No users</p>

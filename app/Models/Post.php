@@ -39,6 +39,7 @@ class Post extends Model
     protected $with = [
 //        'user'
     ];
+
     // region relation
     public function user(): BelongsTo
     {
@@ -75,5 +76,21 @@ class Post extends Model
     {
         $query->where('is_active', true);
         return $query;
+    }
+
+    public function scopeTagFilter(Builder $query): void
+    {
+        $query
+            ->when(request()->filled('tag'), function (Builder $query) {
+                $query->whereHas('tags', fn(Builder $query) => $query->where('tags.id', request('tag')));
+            });
+
+    }
+
+    public function scopeUserFilter(Builder $query): void
+    {
+        $query->when(request()->filled('user'), function (Builder $query) {
+            $query->where('user_id', request('user'));
+        });
     }
 }

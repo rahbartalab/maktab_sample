@@ -20,6 +20,8 @@ class PostController extends Controller
             fn() => Post
                 ::searchTitle()
                 ->searchDescription()
+                ->tagFilter()
+                ->userFilter()
                 ->paginate(request('limit') ?? Controller::DEFAULT_PAGINATE)
         );
 

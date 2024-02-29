@@ -13,7 +13,8 @@
 <p>writer: {{ $post->user->fullName }}</p>
 <p>created at: {{ \Carbon\Carbon::parse($post->created_at)->format('Y-m-d') }}</p>
 @foreach($post->tags as $tag)
-    <p><a href="">#{{ $tag->name }} </a></p>
+    {{--    <p><a href="{{ route('tags.posts' , $tag) }}">#{{ $tag->name }} </a></p>--}}
+    <p><a href="{{ route('posts.index' , ['tag' => $tag->id]) }}">{{ $tag->name }}</a></p>
 @endforeach
 
 
