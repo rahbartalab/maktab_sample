@@ -32,20 +32,20 @@
     <br>
 
     <br>
-    <label for="user_id"></label>
-    <select name="user_id" id="user_id">
-        <option disabled selected value="">
-            select a user
-        </option>
-        @foreach($users as $user)
-            <option value="{{ $user->id }}">
-                {{ $user->name }}
-            </option>
-        @endforeach
-    </select>
-    @error('user_id')
-    {{ $message }}
-    @enderror
+{{--    <label for="user_id"></label>--}}
+{{--    <select name="user_id" id="user_id">--}}
+{{--        <option disabled selected value="">--}}
+{{--            select a user--}}
+{{--        </option>--}}
+{{--        @foreach($users as $user)--}}
+{{--            <option value="{{ $user->id }}">--}}
+{{--                {{ $user->fullName }}--}}
+{{--            </option>--}}
+{{--        @endforeach--}}
+{{--    </select>--}}
+{{--    @error('user_id')--}}
+{{--    {{ $message }}--}}
+{{--    @enderror--}}
     <input type="submit" name="submit" value="create">
 </form>
 </body>

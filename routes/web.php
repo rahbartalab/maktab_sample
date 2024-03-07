@@ -30,9 +30,9 @@ Route::get('/', fn() => 'home');
 
 
 Route::prefix('auth')->controller(AuthController::class)->group(function () {
-    Route::prefix('login')->group(function () {
-        Route::get('/', 'showLogin');
-        Route::post('/', 'submitLogin');
+    Route::prefix('login')->name('login.')->group(function () {
+        Route::get('/', 'showLogin')->name('show');
+        Route::post('/', 'submitLogin')->name('check');
     });
 
     Route::prefix('register')->group(function () {
@@ -41,7 +41,8 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
     });
 });
 
-Route::resource('posts', PostController::class);
+Route::resource('posts', PostController::class)
+    ->middleware('auth');
 
 //Route::get('posts/{post:slug}', [PostController::class, 'show'])
 //    ->name('posts.show');
