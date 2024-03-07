@@ -10,8 +10,21 @@ class TestController extends Controller
 {
     public function __invoke()
     {
-        /** @var User $user */
-        $user = User::query()->find(1);
-//        $user->posts()->saveMany(Post::factory(10)->create());
+//        $user = User::factory()->create([
+//            'first_name' => 'amir',
+//            'last_name' => 'jafari',
+//            'location' => [
+//                'address' => 'st13 alley 21',
+//                'state' => 'tehran',
+//                'city' => 'rasht',
+//                'coordinates' => [
+//                    'longitude' => 34.44455,
+//                    'latitude' => 34.566755
+//                ]
+//            ]
+//        ]);
+
+        $user = User::query()->find(103);
+     dd($user->location);
     }
 }

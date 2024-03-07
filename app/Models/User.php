@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Casts\Json;
 use App\Traits\HasActiveScope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -50,6 +51,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'location' => Json::class
     ];
 
 
@@ -58,6 +60,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
     // endregion
 
 
@@ -92,4 +95,12 @@ class User extends Authenticatable
         );
     }
 
+
+//    public function location(): Attribute
+//    {
+//        return Attribute::make(
+//            get: fn(string $value) => json_decode($value  , true),
+//            set: fn(array $value) => json_encode($value)
+//        );
+//    }
 }
