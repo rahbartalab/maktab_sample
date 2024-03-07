@@ -8,8 +8,17 @@
     @vite('resources/css/app.css')
 </head>
 <body class="bg-slate-200">
+@if(session('success'))
+    <div id="flash_message" role="alert" class="my-2 w-50">
+        <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2">
+            Success
+        </div>
+        <div class="border border-t-0 border-green-400 rounded-b bg-green-100 px-4 py-3 text-green-700">
+            <p>{{ session('success') }}</p>
+        </div>
+    </div>
+@endif
 <h2>Login</h2>
-
 <form action="{{ route('login.check') }}" method="post">
     @csrf
     <label for="email">email</label>
@@ -27,7 +36,18 @@
     <input class="py-1 px-2 rounded-xl bg-slate-700 text-white" type="submit" name="login">
 </form>
 
+<script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous">
+</script>
+<script>
 
+    setTimeout(function () {
+        $('#flash_message').fadeOut();
+    }, 3000)
+
+</script>
 </body>
 </html>
 

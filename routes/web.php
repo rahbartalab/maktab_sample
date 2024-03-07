@@ -35,9 +35,9 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
         Route::post('/', 'submitLogin')->name('check');
     });
 
-    Route::prefix('register')->group(function () {
-        Route::get('/', 'showRegister');
-        Route::post('/', 'submitRegister');
+    Route::prefix('register')->name('register.')->group(function () {
+        Route::get('/', 'showRegister')->name('show');
+        Route::post('/', 'submitRegister')->name('check');
     });
 
     Route::post('logout', 'logout')

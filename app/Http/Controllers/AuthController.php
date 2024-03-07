@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SubmitLoginRequest;
+use App\Http\Requests\SubmitRegisterRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,5 +32,19 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect()->route('login.show');
+    }
+
+    public function showRegister()
+    {
+        return view('auth.register');
+    }
+
+    public function submitRegister(SubmitRegisterRequest $request)
+    {
+        User::query()
+            ->create($request->validated());
+
+        return redirect()->route('login.show')
+            ->with(['success' => 'User registered successfully']);
     }
 }
