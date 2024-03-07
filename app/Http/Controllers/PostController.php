@@ -7,12 +7,14 @@ use App\Http\Requests\Post\UpdatePostRequest;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class PostController extends Controller
 {
     public function index(): View
     {
+        $user = Auth::user();
         $page = request('page') ?? 1;
         $posts = cache()->remember(
             'posts.' . str($page),
@@ -22,10 +24,12 @@ class PostController extends Controller
                 ->searchDescription()
                 ->tagFilter()
                 ->userFilter()
+                ->where('user_id' , $user->id)
                 ->paginate(request('limit') ?? Controller::DEFAULT_PAGINATE)
         );
 
-        return view('posts.index', compact('posts'));
+
+        return view('posts.index', compact('posts' , 'user'));
     }
 
     public function create(): View

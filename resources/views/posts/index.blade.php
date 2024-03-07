@@ -6,8 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Document</title>
+    @vite('resources/css/app.css')
 </head>
 <body>
+<div class="bg-slate-500 p-4 text-white font-bold">
+    {{ $user->fullName }}
+</div>
 <table>
     <thead>
     <tr>
