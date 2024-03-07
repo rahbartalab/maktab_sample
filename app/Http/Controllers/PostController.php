@@ -24,12 +24,12 @@ class PostController extends Controller
                 ->searchDescription()
                 ->tagFilter()
                 ->userFilter()
-                ->where('user_id' , $user->id)
+                ->where('user_id', $user->id)
                 ->paginate(request('limit') ?? Controller::DEFAULT_PAGINATE)
         );
 
 
-        return view('posts.index', compact('posts' , 'user'));
+        return view('posts.index', compact('posts', 'user'));
     }
 
     public function create(): View
@@ -51,17 +51,15 @@ class PostController extends Controller
 
     public function edit(Post $post): View
     {
-        $users = cache()->remember(
-            'users',
-            Controller::DEFAULT_CACHE_SECONDS,
-            fn() => User::all()
-        );
+        $user = Auth::user();
+        $this->checkAccess($post);
         return view('posts.edit',
-            compact('post', 'users'));
+            compact('post' , 'user'));
     }
 
     public function update(UpdatePostRequest $request, Post $post): RedirectResponse
     {
+        $this->checkAccess($post);
         $validated = $request->validated();
         $post->update($validated);
         return redirect()->route('posts.edit', $post);
@@ -71,4 +69,13 @@ class PostController extends Controller
     {
         return view('posts.show', compact('post'));
     }
+
+    private function checkAccess($post): void
+    {
+        if ($post->user_id !== Auth::id()) {
+            abort(403);
+        }
+    }
+
+
 }

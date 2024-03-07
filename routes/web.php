@@ -39,6 +39,10 @@ Route::prefix('auth')->controller(AuthController::class)->group(function () {
         Route::get('/', 'showRegister');
         Route::post('/', 'submitRegister');
     });
+
+    Route::post('logout', 'logout')
+        ->name('logout')
+        ->middleware('auth');
 });
 
 Route::resource('posts', PostController::class)

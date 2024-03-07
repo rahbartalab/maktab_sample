@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -30,7 +31,6 @@ class UpdatePostRequest extends FormRequest
                     ->ignore($this->route('post')->id)
             ],
             'description' => ['required', 'string'],
-            'user_id' => ['required', 'exists:users,id']
         ];
     }
 
@@ -39,7 +39,10 @@ class UpdatePostRequest extends FormRequest
         // slug: this is sample title -> this-is-sample-title
         return array_merge(
             parent::validated(),
-            ['slug' => Str::slug(request('title'))]
+            [
+                'slug' => Str::slug(request('title')),
+                'user_id' => Auth::id()
+            ]
         );
     }
 }
