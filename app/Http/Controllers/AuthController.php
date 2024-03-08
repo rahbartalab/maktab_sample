@@ -44,6 +44,6 @@ class AuthController extends Controller
         $user = User::create($request->validated());
 
         Auth::login($user);
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.show')->with('success', 'registered successfully');
     }
 }

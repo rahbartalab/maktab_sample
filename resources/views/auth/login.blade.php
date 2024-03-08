@@ -10,6 +10,10 @@
 <body class="bg-slate-200">
 <h2>Login</h2>
 
+@if(session('success'))
+    {{session('success')}}
+@endif
+
 <form action="{{ route('login.check') }}" method="post">
     @csrf
     <label for="email">email</label>
