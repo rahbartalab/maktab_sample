@@ -12,6 +12,12 @@ use Illuminate\View\View;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Post::class);
+    }
+
     public function index(): View
     {
         $user = Auth::user();
@@ -52,14 +58,12 @@ class PostController extends Controller
     public function edit(Post $post): View
     {
         $user = Auth::user();
-        $this->checkAccess($post);
         return view('posts.edit',
             compact('post' , 'user'));
     }
 
     public function update(UpdatePostRequest $request, Post $post): RedirectResponse
     {
-        $this->checkAccess($post);
         $validated = $request->validated();
         $post->update($validated);
         return redirect()->route('posts.edit', $post);
@@ -69,13 +73,4 @@ class PostController extends Controller
     {
         return view('posts.show', compact('post'));
     }
-
-    private function checkAccess($post): void
-    {
-        if ($post->user_id !== Auth::id()) {
-            abort(403);
-        }
-    }
-
-
 }
